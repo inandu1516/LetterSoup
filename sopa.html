@@ -57,6 +57,9 @@
 
                     do {
                         var llargada = paraula.length;
+                        var p_lletres = paraula.split('');
+                        console.log(p_lletres);
+
                         var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
                         var y = Math.round(Math.random() * ((9 - 0)+1) + 0);
                         var z = Math.round(Math.random() * 1 + 0);
@@ -65,17 +68,22 @@
                         if (z) {
                             if ((filas - y) >= llargada) {                     //afegim paraula horitzontal
                                 ok = true;
+                                var c = 0;
                                 for (var k = y; k < y + llargada; k++) {
                                     console.log("[" + x + "][" + k + "]");
-                                    Sopa.grid[x][k] = ".";
+                                    Sopa.grid[x][k] = "<b>" +  p_lletres[c] + "</b>";
+                                    c++;
                                 }
                             }
                         } else {
                             if ((cols - x) >= llargada) {                    //afegim paraula vertical
                                 ok = true;
+                                var q = 0;
                                 for (var p = x; p < x + llargada; p++) {
                                     console.log("[" + p + "][" + y + "]");
-                                    Sopa.grid[p][y] = ".";
+                                    Sopa.grid[p][y] = "<b>" + p + "</b>";
+                                    Sopa.grid[p][y] = "<b>" +  p_lletres[q] + "</b>";
+                                    q++;
                                 }
                             }
                         }
