@@ -28,11 +28,6 @@
                         }
                     }
                 },
-                'agregaParaules': function () {
-//                    Sopa.grid[0][0] = "I"; Sopa.grid[0][1] = "N"; Sopa.grid[0][2] = "G"; Sopa.grid[0][3] = "E";
-//                    Sopa.grid[1][0] = "C"; Sopa.grid[2][0] = "A"; Sopa.grid[3][0] = "S"; Sopa.grid[4][0] = "A";
-//                    Sopa.grid[2][2] = "I"; Sopa.grid[3][3] = "S"; Sopa.grid[4][4] = "L"; Sopa.grid[5][5] = "A";
-                },
                 'printaGrid': function () {
                     for (var i = 0; i < cols; i++) {
                         $("table").append("<tr id='" + i + "'>");
@@ -45,19 +40,11 @@
                     $("table").empty();
                 },
                 'afegirParaula': function (paraula){
-                    Sopa.deleteGrid();
-                    Sopa.init();
-//                    var llargada = paraula.length;
-//                    var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
-//                    var y = Math.round(Math.random() * ((9 - 0)+1) + 0);
-//                    var z = Math.round(Math.random() * 1 + 0);
                     var ok = false;
-//                    console.log("Random punt: ["+x+"]["+y+"]" );
-//                    console.log("llargada: " + llargada);
 
                     do {
                         var llargada = paraula.length;
-                        var p_lletres = paraula.split('');
+                        var p_lletres = paraula.toUpperCase().split('');
                         console.log(p_lletres);
 
                         var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
@@ -89,20 +76,22 @@
                         }
                     }while(ok == false);
 
-//                    Sopa.agregaParaules();
-                    Sopa.printaGrid();
                     console.log(ok);
                 }
             };
 
+            Sopa.init();
+
             $("#start").click(function(){
+                Sopa.printaGrid();
                 $("td").click(tdSelect);
                 $("table").fadeIn(1500);
             });
 
-            $("#input").click(function (){
+            $("form").submit(function (){
                 var paraula = $("#entrada").val();
-//                paraulesEntrades.push(paraula);
+                $("#entrada").val('');
+                paraulesEntrades.push(paraula.toUpperCase());
                 Sopa.afegirParaula(paraula);
                 console.log("paraulesEntrades: " + paraulesEntrades);
             });
@@ -113,19 +102,15 @@
                 console.log("\n" + lletres + "\n");
                 $("#paraula").text(lletres);
 
-                if($("#paraula").text() == "INGE"){
-                    alert("Paraula trobada!");
-                    paraulesTrobades.push("INGE");
-                    correcte();
-                }else if($("#paraula").text() == "CASA"){
-                    alert("Paraula trobada!");
-                    paraulesTrobades.push("CASA");
-                    correcte();
-                }else if($("#paraula").text() == "ISLA"){
-                    alert("Paraula trobada!");
-                    paraulesTrobades.push("ISLA");
-                    correcte();
+                for (var i = 0; i < paraulesEntrades.length; i++){
+                    console.log("paraulesEntrades["+i+"]: " + paraulesEntrades[i]);
+                    if($("#paraula").text() == paraulesEntrades[i]){
+                        alert("Paraula trobada!");
+                        paraulesTrobades.push(paraulesEntrades[i]);
+                        correcte();
+                    }
                 }
+
                 console.log(paraulesTrobades);
             }
 
@@ -134,13 +119,13 @@
                 $(".adivinada").removeClass("selected");
             }
 
-
         });
     </script>
 </head>
 <body>
-    <input type="text" id="entrada">
-    <input type="submit" value="entra" id="input">
+    <form>
+        <input id="entrada" type="text" name="txt" />
+    </form>
     <button id="start">Start</button>
     <div id="sopa">
         <table></table>
