@@ -47,15 +47,21 @@
                 'afegirParaula': function (paraula){
                     Sopa.deleteGrid();
                     Sopa.init();
-                    var llargada = paraula.length;
-                    var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
-                    var y = Math.round(Math.random() * ((9 - 0)+1) + 0);
-                    var z = Math.round(Math.random() * 1 + 0);
+//                    var llargada = paraula.length;
+//                    var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
+//                    var y = Math.round(Math.random() * ((9 - 0)+1) + 0);
+//                    var z = Math.round(Math.random() * 1 + 0);
                     var ok = false;
-                    console.log("Random punt: ["+x+"]["+y+"]" );
-                    console.log("llargada: " + llargada);
+//                    console.log("Random punt: ["+x+"]["+y+"]" );
+//                    console.log("llargada: " + llargada);
 
-//                    while(ok == false) {
+                    do {
+                        var llargada = paraula.length;
+                        var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
+                        var y = Math.round(Math.random() * ((9 - 0)+1) + 0);
+                        var z = Math.round(Math.random() * 1 + 0);
+                        console.log("Random punt: ["+x+"]["+y+"]" );
+                        console.log("llargada: " + llargada);
                         if (z) {
                             if ((filas - y) >= llargada) {                     //afegim paraula horitzontal
                                 ok = true;
@@ -73,7 +79,7 @@
                                 }
                             }
                         }
-//                    }
+                    }while(ok == false);
 
 //                    Sopa.agregaParaules();
                     Sopa.printaGrid();
