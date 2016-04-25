@@ -1,0 +1,17 @@
+table {
+    border: 1px solid;
+}
+
+td {
+    /*border: 1px dotted;*/
+    text-align: center;
+    padding: 4px 4px;
+}
+
+.selected {
+     background-color: #99cc00;
+}
+
+.adivinada {
+    background-color: #cc6a0e;
+}

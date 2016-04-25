@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sopa Lletres</title>
+    <link href="css/sopa.css" rel="stylesheet">
+    <script src="js/jquery-1.12.3.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            $("table").hide();
+
+            var paraulesEntrades = [];
+
+            var paraulesTrobades = [];
+
+            var filas = 20;
+            var cols = 10;
+
+            var Sopa = {
+                'grid': [],
+                'init': function () {
+                    for (var x = 0; x < cols; x++) {
+                        Sopa.grid[x] = [];
+                        for (var y = 0; y < filas; y++) {
+                            var unicode = Math.round(Math.random() * ((89 - 65)+1) + 65 );
+                            Sopa.grid[x][y] = String.fromCharCode(unicode);
+                        }
+                    }
+                },
+                'agregaParaules': function () {
+//                    Sopa.grid[0][0] = "I"; Sopa.grid[0][1] = "N"; Sopa.grid[0][2] = "G"; Sopa.grid[0][3] = "E";
+//                    Sopa.grid[1][0] = "C"; Sopa.grid[2][0] = "A"; Sopa.grid[3][0] = "S"; Sopa.grid[4][0] = "A";
+//                    Sopa.grid[2][2] = "I"; Sopa.grid[3][3] = "S"; Sopa.grid[4][4] = "L"; Sopa.grid[5][5] = "A";
+                },
+                'printaGrid': function () {
+                    for (var i = 0; i < cols; i++) {
+                        $("table").append("<tr id='" + i + "'>");
+                        for (var j = 0; j < filas; j++) {
+                            $("#"+i).append("<td>" + Sopa.grid[i][j] + "</td>");
+                        }
+                    }
+                },
+                'deleteGrid': function () {
+                    $("table").empty();
+                },
+                'afegirParaula': function (paraula){
+                    Sopa.deleteGrid();
+                    Sopa.init();
+                    var llargada = paraula.length;
+                    var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
+                    var y = Math.round(Math.random() * ((9 - 0)+1) + 0);
+                    var z = Math.round(Math.random() * 1 + 0);
+                    var ok = false;
+                    console.log("Random punt: ["+x+"]["+y+"]" );
+                    console.log("llargada: " + llargada);
+
+//                    while(ok == false) {
+                        if (z) {
+                            if ((filas - y) >= llargada) {                     //afegim paraula horitzontal
+                                ok = true;
+                                for (var k = y; k < y + llargada; k++) {
+                                    console.log("[" + x + "][" + k + "]");
+                                    Sopa.grid[x][k] = ".";
+                                }
+                            }
+                        } else {
+                            if ((cols - x) >= llargada) {                    //afegim paraula vertical
+                                ok = true;
+                                for (var p = x; p < x + llargada; p++) {
+                                    console.log("[" + p + "][" + y + "]");
+                                    Sopa.grid[p][y] = ".";
+                                }
+                            }
+                        }
+//                    }
+
+//                    Sopa.agregaParaules();
+                    Sopa.printaGrid();
+                    console.log(ok);
+                }
+            };
+
+            $("#start").click(function(){
+                $("td").click(tdSelect);
+                $("table").fadeIn(1500);
+            });
+
+            $("#input").click(function (){
+                var paraula = $("#entrada").val();
+//                paraulesEntrades.push(paraula);
+                Sopa.afegirParaula(paraula);
+                console.log("paraulesEntrades: " + paraulesEntrades);
+            });
+
+            function tdSelect(){
+                $(this).toggleClass("selected");
+                var lletres = $(".selected").text();
+                console.log("\n" + lletres + "\n");
+                $("#paraula").text(lletres);
+
+                if($("#paraula").text() == "INGE"){
+                    alert("Paraula trobada!");
+                    paraulesTrobades.push("INGE");
+                    correcte();
+                }else if($("#paraula").text() == "CASA"){
+                    alert("Paraula trobada!");
+                    paraulesTrobades.push("CASA");
+                    correcte();
+                }else if($("#paraula").text() == "ISLA"){
+                    alert("Paraula trobada!");
+                    paraulesTrobades.push("ISLA");
+                    correcte();
+                }
+                console.log(paraulesTrobades);
+            }
+
+            function correcte() {
+                $(".selected").addClass("adivinada");
+                $(".adivinada").removeClass("selected");
+            }
+
+
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="entrada">
+    <input type="submit" value="entra" id="input">
+    <button id="start">Start</button>
+    <div id="sopa">
+        <table></table>
+    </div>
+    <p id="paraula"></p>
+</body>
+</html>
