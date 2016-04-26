@@ -8,8 +8,6 @@
     <script>
         $(document).ready(function(){
 
-            $("table").hide();
-
             var paraulesEntrades = [];
             var paraulesTrobades = [];
             var filas = 10;
@@ -76,12 +74,17 @@
                 }
             };
 
+            $("table").hide();
+            $("#llista").hide();
+
             Sopa.init();
 
             $("#start").click(function(){
                 Sopa.printaGrid();
                 $("td").click(tdSelect);
                 $("table").fadeIn(1500);
+                llistarEntrades();
+                $("#llista").fadeIn(3000);
             });
 
             $("#entra").click(function (){
@@ -103,13 +106,19 @@
                 for (var i = 0; i < paraulesEntrades.length; i++){
                     console.log("paraulesEntrades["+i+"]: " + paraulesEntrades[i]);
                     if($("#paraula").text() == paraulesEntrades[i]){
-                        alert("Paraula trobada!");
-                        paraulesTrobades.push(paraulesEntrades[i]);
+                        $('#p'+i).fadeOut(3000);
                         correcte();
                     }
                 }
-
                 console.log(paraulesTrobades);
+            }
+
+            function llistarEntrades(){
+                var llista = $('#llista');
+                var numEntrades = paraulesEntrades.length;
+                for (var m = 0; m < numEntrades; m++){
+                    llista.append("<li id='p"+m+"'>" + paraulesEntrades[m] + "</li>");
+                }
             }
 
             function correcte() {
@@ -131,6 +140,9 @@
     <div id="sopa">
         <table></table>
     </div>
-    <p id="paraula"></p>
+    <div id="llistaBlock">
+        <ul id="llista"></ul>
+    </div>
+    Selecció: <span id="paraula"></span>
 </body>
 </html>
