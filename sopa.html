@@ -39,14 +39,14 @@
                 },
                 'afegirParaula': function (paraula){
                     var ok = false;
-                        var llargada = paraula.length;
-                        var p_lletres = paraula.toUpperCase().split('');
-                        console.log(p_lletres);
+                    var llargada = paraula.length;
+                    var p_lletres = paraula.toUpperCase().split('');
+                    console.log(p_lletres);
 
                     do {
-                        var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
-                        var y = Math.round(Math.random() * ((9 - 0)+1) + 0);
-                        var z = Math.round(Math.random() * 1 + 0);
+                        var x = Math.round(random(0,9));
+                        var y = Math.round(random(0,9));
+                        var z = Math.round(random(0,1));
                         console.log("Random punt: ["+x+"]["+y+"]" );
                         console.log("llargada: " + llargada);
                         console.log("z: " + z);
@@ -115,6 +115,10 @@
             function correcte() {
                 $(".selected").addClass("adivinada");
                 $(".adivinada").removeClass("selected");
+            }
+
+            function random(i, f){
+                return Math.floor(Math.random() * ((f-i)+1) + i);
             }
 
         });
