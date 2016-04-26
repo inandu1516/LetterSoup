@@ -11,27 +11,25 @@
             $("table").hide();
 
             var paraulesEntrades = [];
-
             var paraulesTrobades = [];
-
-            var filas = 20;
-            var cols = 10;
+            var filas = 10;
+            var cols = 20;
 
             var Sopa = {
                 'grid': [],
                 'init': function () {
-                    for (var x = 0; x < cols; x++) {
+                    for (var x = 0; x < filas; x++) {
                         Sopa.grid[x] = [];
-                        for (var y = 0; y < filas; y++) {
+                        for (var y = 0; y < cols; y++) {
                             var unicode = Math.round(Math.random() * ((89 - 65)+1) + 65 );
                             Sopa.grid[x][y] = String.fromCharCode(unicode);
                         }
                     }
                 },
                 'printaGrid': function () {
-                    for (var i = 0; i < cols; i++) {
+                    for (var i = 0; i < filas; i++) {
                         $("table").append("<tr id='" + i + "'>");
-                        for (var j = 0; j < filas; j++) {
+                        for (var j = 0; j < cols; j++) {
                             $("#"+i).append("<td>" + Sopa.grid[i][j] + "</td>");
                         }
                     }
@@ -41,17 +39,17 @@
                 },
                 'afegirParaula': function (paraula){
                     var ok = false;
-
-                    do {
                         var llargada = paraula.length;
                         var p_lletres = paraula.toUpperCase().split('');
                         console.log(p_lletres);
 
+                    do {
                         var x = Math.round(Math.random() * ((9 - 0)+1) + 0);
                         var y = Math.round(Math.random() * ((9 - 0)+1) + 0);
                         var z = Math.round(Math.random() * 1 + 0);
                         console.log("Random punt: ["+x+"]["+y+"]" );
                         console.log("llargada: " + llargada);
+                        console.log("z: " + z);
                         if (z) {
                             if ((filas - y) >= llargada) {                     //afegim paraula horitzontal
                                 ok = true;
@@ -63,7 +61,7 @@
                                 }
                             }
                         } else {
-                            if ((cols - x) >= llargada) {                    //afegim paraula vertical
+                            if ((filas - x) >= llargada) {                    //afegim paraula vertical
                                 ok = true;
                                 var q = 0;
                                 for (var p = x; p < x + llargada; p++) {
@@ -75,8 +73,6 @@
                             }
                         }
                     }while(ok == false);
-
-                    console.log(ok);
                 }
             };
 
@@ -88,9 +84,11 @@
                 $("table").fadeIn(1500);
             });
 
-            $("form").submit(function (){
-                var paraula = $("#entrada").val();
-                $("#entrada").val('');
+            $("#entra").click(function (){
+                var $entrada = $("#entrada");
+                var paraula = $entrada.val();
+                $entrada.val('');
+                $entrada.attr('placeholder', 'ok, següent paraula');
                 paraulesEntrades.push(paraula.toUpperCase());
                 Sopa.afegirParaula(paraula);
                 console.log("paraulesEntrades: " + paraulesEntrades);
@@ -123,9 +121,8 @@
     </script>
 </head>
 <body>
-    <form>
-        <input id="entrada" type="text" name="txt" />
-    </form>
+    <input id="entrada" type="text" name="txt" placeholder="entra paraula"/>
+    <button id="entra">Entra</button>
     <button id="start">Start</button>
     <div id="sopa">
         <table></table>
