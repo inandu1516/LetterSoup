@@ -3,9 +3,17 @@ table {
 }
 
 td {
-    /*border: 1px dotted;*/
     text-align: center;
     padding: 4px 4px;
+}
+
+#sopa {
+    margin-top: 1em;
+    width: 30em;
+}
+
+#llistaBlock {
+    /*border: 1px solid;*/
 }
 
 .selected {
@@ -13,5 +21,6 @@ td {
 }
 
 .adivinada {
-    background-color: #cc6a0e;
+    background-color: #37abd2;
+    color: #FFFFFF;
 }
