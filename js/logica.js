@@ -1,10 +1,29 @@
 $(document).ready(function(){
 
+    /**
+     * @type {Array}
+     */
     var paraulesEntrades = [];
+
+    /**
+     * @type {Array}
+     */
     var paraulesTrobades = [];
+
+    /**
+     * @type {number}
+     */
     var filas = 10;
+
+    /**
+     * @type {number}
+     */
     var cols = 20;
 
+    /**
+     *
+     * @type {{grid: Array, init: Sopa.'init', printaGrid: Sopa.'printaGrid', deleteGrid: Sopa.'deleteGrid', afegirParaula: Sopa.'afegirParaula'}}
+     */
     var Sopa = {
         'grid': [],
         'init': function () {
@@ -89,6 +108,7 @@ $(document).ready(function(){
         console.log("paraulesEntrades: " + paraulesEntrades);
     });
 
+
     function tdSelect(){
         $(this).toggleClass("selected");
         var lletres = $(".selected").text();
@@ -118,6 +138,11 @@ $(document).ready(function(){
         $(".adivinada").removeClass("selected");
     }
 
+    /**
+     * @param i
+     * @param f
+     * @returns {number}
+     */
     function random(i, f){
         return Math.floor(Math.random() * ((f-i)+1) + i);
     }
